@@ -1,6 +1,6 @@
 let apiUrl
 const apiUrls = {
-  production: '<replace-with-heroku-url>',
+  production: 'https://zclark0625-pokedex.herokuapp.com/',
   development: 'http://localhost:4741'
 }
 
