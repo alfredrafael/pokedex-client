@@ -9,6 +9,8 @@ import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 
+import PokemonHome from './pokedex/PokemonHome.js'
+
 class App extends Component {
   constructor () {
     super()
@@ -54,7 +56,11 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword flash={this.flash} user={user} />
           )} />
+
         </main>
+
+        <Route exact path='/' component={PokemonHome} />
+
       </React.Fragment>
     )
   }

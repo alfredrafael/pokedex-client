@@ -1,7 +1,14 @@
+@import '~antd/dist/antd.css';
+@import './Colors.scss';
+
 $success: #c7f282;
 $warning: #f1e681;
 $error: #f08181;
 $charcoal: #ccc;
+
+body {
+  background: $poke-white;
+}
 
 .flash-success,
 .flash-warning,
