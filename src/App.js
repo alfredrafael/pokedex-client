@@ -10,6 +10,7 @@ import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 
 import PokemonHome from './pokedex/PokemonHome.js'
+import PokemonDetails from './pokedex/PokemonDetails.js'
 
 class App extends Component {
   constructor () {
@@ -60,6 +61,7 @@ class App extends Component {
         </main>
 
         <Route exact path='/' component={PokemonHome} />
+        <Route exact path='/pokemon/:id' component={PokemonDetails} />
 
       </React.Fragment>
     )

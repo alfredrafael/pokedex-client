@@ -10,7 +10,7 @@ const PokemonCard = props => (
   <Card hoverable 
     headStyle={headStyle} 
     title={props.name}
-    cover={<img alt="sprite" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} />} 
+    cover={<img alt="sprite" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.dexNumber}.png`} />} 
   >
   </Card>
 )

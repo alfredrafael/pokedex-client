@@ -1,9 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Redirect } from 'react-router-dom'
-import { Card, Row, Col, Input } from 'antd'
-import Responsive from 'react-responsive'
-import apiUrl from '../apiConfig'
-import axios from 'axios'
+import { Row, Col, Input } from 'antd'
 
 import { XLarge, Large, Medium, Small, XSmall } from '../MediaQueries.js'
 import './PokemonHome.scss'
@@ -27,8 +23,10 @@ class PokemonHome extends Component {
     for (let j = 0; j < colCount; j++) {
       if (i + j <= this.state.pokemon.length - 1) {
         colRet.push(
-          <Col key={j.toString()} span={24 / colCount}>
-            <PokemonCard name={this.state.pokemon[i + j].name} id={this.state.pokemon[i + j].id} />
+          <Col key={j.toString()} span={24 / colCount} >
+            <div onClick={this.handleClick} id={this.state.pokemon[i + j].id} >
+              <PokemonCard name={this.state.pokemon[i + j].name} dexNumber={this.state.pokemon[i + j].id} />
+            </div>
           </Col>
         )
       }
@@ -42,7 +40,7 @@ class PokemonHome extends Component {
 
     for (let i = 0; i <= this.state.pokemon.length - 1; i += colCount) {
       rowRet.push(
-        <div key={i} style={{padding: '0 0 16px 0'}}>
+        <div key={i} style={{padding: '0 0 16px 0'}} >
           <Row gutter={16}>
             {this.populateCols(colCount, i)}
           </Row>
@@ -54,11 +52,14 @@ class PokemonHome extends Component {
   }
 
   handleChange = event => {
-    console.log(event.target.value)
     this.setState({
       search: event.target.value,
       pokemon: PokemonSource.filter(pokemon => (pokemon.name.toLowerCase().includes(event.target.value.toLowerCase()) || pokemon.id.toString() === event.target.value))
     })
+  }
+
+  handleClick = event => {
+    this.props.history.push('/pokemon/' + event.currentTarget.id)
   }
 
   render () {
