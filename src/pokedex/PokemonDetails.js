@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import { Tabs, Row, Col } from 'antd'
+import { Tabs, Row, Col, Tag } from 'antd'
 import Responsive from 'react-responsive'
 import apiUrl from '../apiConfig'
 import axios from 'axios'
@@ -12,6 +12,28 @@ import MovesTab from './MovesTab.js'
 const Md = props => <Responsive {...props} minWidth={768} />
 
 const TabPane = Tabs.TabPane
+
+
+const typeColors = {
+  normal: '#a8a878',
+  fire: '#f08030',
+  fighting: '#c03028',
+  water: '#6890f0',
+  flying: '#a890f0',
+  grass: '#78c850',
+  poison: '#a040a0',
+  electric: '#f8d030',
+  ground: '#e0c068',
+  psychic: '#f85888',
+  rock: '#b8a038',
+  ice: '#98d8d8',
+  bug: '#a8b820',
+  dragon: '#7038f8',
+  ghost: '#705898',
+  dark: '#705848',
+  steel: '#b8b8d0',
+  fairy: '#ee99ac'
+}
 
 class PokemonDetails extends Component {
   constructor(props) {
@@ -41,6 +63,9 @@ class PokemonDetails extends Component {
       <React.Fragment>
         <div className='name-container'>
           <h1>{this.capitalize(pokemon.name)}</h1>
+          {pokemon.types.map(type => (
+            <Tag color={typeColors[type.type.name.toLowerCase()]} key={type.type.name + '-' + pokemon.name}>{this.capitalize(type.type.name)}</Tag>
+          ))}
         </div>
         <Row >
           <Col xs={{span: 24}} md={{span: 12}} lg={{span: 8, offset: 2}} xl={{span: 6, offset: 3}} >
