@@ -7,6 +7,7 @@ import axios from 'axios'
 
 import './PokemonDetails.scss'
 import StatsTab from './StatsTab.js'
+import MovesTab from './MovesTab.js'
 
 const Md = props => <Responsive {...props} minWidth={768} />
 
@@ -30,10 +31,6 @@ class PokemonDetails extends Component {
       .then(res => this.setState({pokemon: res.data}))
   }
 
-  log(key) {
-    console.log(key)
-  }
-
   render() {
     const pokemon = this.state.pokemon
     console.log(pokemon)
@@ -42,7 +39,9 @@ class PokemonDetails extends Component {
       <h2>Loading...</h2>
     ) : (
       <React.Fragment>
-        <h1>{this.capitalize(pokemon.name)}</h1>
+        <div className='name-container'>
+          <h1>{this.capitalize(pokemon.name)}</h1>
+        </div>
         <Row >
           <Col xs={{span: 24}} md={{span: 12}} lg={{span: 8, offset: 2}} xl={{span: 6, offset: 3}} >
             <div className='sprite-container' >
@@ -53,20 +52,17 @@ class PokemonDetails extends Component {
             </div>
           </Col>
           <Col xs={{span: 24}} md={{span: 12}} lg={{span: 12, offset: 2}} xl={{span: 12, offset: 3}} >
-            <Tabs onChange={this.log} type="card">
+            <Tabs type="card">
               <TabPane tab='Stats' key='stats'>
-                <div className='stats-container'>
+                <div className='tab-container'>
                   <StatsTab stats={pokemon.stats} />
                 </div>
               </TabPane>
-              <TabPane tab="Tab 1" key="1">
-                <Tabs onChange={this.log} tabPosition='left' >
-                  <TabPane tab='Inner Tab 1' key='inner1'>Inner Content 1</TabPane>
-                  <TabPane tab='Inner Tab 2' key='inner2'>Inner Content 2</TabPane>
-                </Tabs>
+              <TabPane tab="Move Set" key="moves">
+                <div className='tab-container'>
+                  <MovesTab moves={pokemon.moves} />
+                </div>
               </TabPane>
-              <TabPane tab="Tab 2" key="2">Content of Tab Pane 2</TabPane>
-              <TabPane tab="Tab 3" key="3">Content of Tab Pane 3</TabPane>
             </Tabs>
           </Col>
         </Row>

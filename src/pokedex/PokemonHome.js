@@ -25,7 +25,7 @@ class PokemonHome extends Component {
         colRet.push(
           <Col key={j.toString()} span={24 / colCount} >
             <div onClick={this.handleClick} id={this.state.pokemon[i + j].id} >
-              <PokemonCard name={this.state.pokemon[i + j].name} dexNumber={this.state.pokemon[i + j].id} />
+              <PokemonCard name={this.state.pokemon[i + j].name} dexNumber={this.state.pokemon[i + j].id} types={this.state.pokemon[i + j].types} />
             </div>
           </Col>
         )
@@ -69,7 +69,7 @@ class PokemonHome extends Component {
           {/* Search bar for real-time search */}
           <Search
             className='search-bar'
-            placeholder='Name'
+            placeholder='Name or Pokédex Number'
             value={this.state.search}
             onChange={this.handleChange}
             style={{ width: 300, padding: '30px 0 30px 0',  }}

@@ -1,5 +1,11 @@
 @import '../Colors.scss';
 
+@font-face {
+  font-family: poke-solid;
+  src: url('../poke_solid.ttf') 
+    format('truetype');
+}
+
 .main-header {
   background: $poke-red;
   align-items: center;
@@ -11,6 +17,9 @@
 
   h1 {
     color: $poke-white;
+    font-family: poke-solid;
+    font-size: 4em;
+    margin: 1em;
   }
 
   a,

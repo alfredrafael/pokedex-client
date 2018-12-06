@@ -11,6 +11,8 @@ function StatsTab (props) {
   const baseSpecAtk = stats.find(e => e.stat.name === 'special-attack')
   const baseSpecDef = stats.find(e => e.stat.name === 'special-defense')
 
+  const totalStats = baseHp.base_stat + baseAtk.base_stat + baseDef.base_stat + baseSpecAtk.base_stat + baseSpecDef.base_stat + baseSpeed.base_stat
+
   const chartData = {
     labels: ['HP', 'Atk', 'Def', 'SpAtk', 'SpDef', 'Speed'],
     datasets: [{
@@ -34,6 +36,7 @@ function StatsTab (props) {
 
   return (
     <React.Fragment>
+      <h5>Total Base Stats: {totalStats}</h5>
       <HorizontalBar data={chartData} options={chartOptions} />
     </React.Fragment>
   )

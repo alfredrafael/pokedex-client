@@ -1,5 +1,11 @@
 @import '../Colors.scss';
 
+@font-face {
+    font-family: poke-solid;
+    src: url('../poke_solid.ttf') 
+	    format('truetype');
+}
+
 .normal-sprite, .shiny-sprite {
     height: 100%;
     width: 100%;
@@ -10,6 +16,22 @@
     padding: 16px;
 }
 
-.stats-container {
+.tab-container {
     padding: 16px;
+}
+
+.name-container {
+    color: $poke-black;
+    text-align: center;
+    padding: 30px;
+    font-family: poke-solid;
+}
+
+td {
+    text-transform: capitalize;
+}
+
+.ant-table-thead > tr > th {
+    background-color: $poke-red;
+    color: $poke-white;
 }
