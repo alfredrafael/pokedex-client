@@ -1,5 +1,9 @@
 import React from 'react'
-import { Card, Tag } from 'antd'
+import { Card, Tag, Button } from 'antd'
+import axios from 'axios'
+import apiUrl from '../apiConfig'
+
+import PokemonSource from './PokemonSource.js'
 
 import './PokemonCard.scss'
 
@@ -33,6 +37,52 @@ function capitalize (string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
+function handleAdd (event, user, pokedex, pokeId, change, flash) {
+  const newPokemonArray = pokedex.pokemon.slice()
+  newPokemonArray.push(pokeId)
+
+  event.preventDefault()
+  event.stopPropagation()
+
+  axios.patch(apiUrl + '/pokedex/' + pokedex._id, 
+    {
+      pokedex: 
+      {
+        pokemon: newPokemonArray
+      }
+    },
+    {
+      headers: 
+        {'Authorization': 'bearer ' + user.token,
+          'Content-Type': 'application/json'}
+    })
+    .then(() => flash(`Added ${PokemonSource.find(pokemon => pokemon.id === pokeId).name}`,'flash-success'))
+    .then(() => change())
+    .catch(res => flash('PATCH-Add Error', 'flash-error'))
+}
+
+function handleRemove (event, user, pokedex, pokeId, change) {
+  const newPokemonArray = pokedex.pokemon.slice().filter(num => num !== pokeId)
+
+  event.preventDefault()
+  event.stopPropagation()
+
+  axios.patch(apiUrl + '/pokedex/' + pokedex._id, 
+    {
+      pokedex: 
+      {
+        pokemon: newPokemonArray
+      }
+    },
+    {
+      headers: 
+        {'Authorization': 'bearer ' + user.token,
+          'Content-Type': 'application/json'}
+    })
+    .then(() => change())
+    .catch(res => flash('PATCH-Remove Error', 'flash-error'))
+}
+
 const PokemonCard = props => (
   <Card hoverable 
     headStyle={headStyle}
@@ -44,6 +94,10 @@ const PokemonCard = props => (
       {props.types.map(type => (
         type === '' ? '' : <Tag color={typeColors[type.toLowerCase()]} key={type + '-' + props.name}>{capitalize(type)}</Tag>
       ))}
+    </div>
+    <div className='button-container'>
+      {props.add ? <Button onClick={event => handleAdd(event, props.user, props.pokedex, props.dexNumber, props.change, props.flash)} size='small'>Add</Button> : ''}
+      {props.delete ? <Button onClick={event => handleRemove(event, props.user, props.pokedex, props.dexNumber, props.change)} size='small' type='danger'>Remove</Button> : ''}
     </div>
   </Card>
 )

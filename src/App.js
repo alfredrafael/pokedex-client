@@ -11,6 +11,7 @@ import ChangePassword from './auth/components/ChangePassword'
 
 import PokemonHome from './pokedex/PokemonHome.js'
 import PokemonDetails from './pokedex/PokemonDetails.js'
+import UserPokedex from './pokedex/UserPokedex.js'
 
 class App extends Component {
   constructor () {
@@ -60,8 +61,9 @@ class App extends Component {
 
         </main>
 
-        <Route exact path='/' component={PokemonHome} />
-        <Route exact path='/pokemon/:id' component={PokemonDetails} />
+        <Route exact path='/' render={props => <PokemonHome {...props} flash={this.flash} user={user} history={props.history} /> } />
+        <AuthenticatedRoute exact path='/dex' user={user} render={props => <UserPokedex {...props} flash={this.flash} user={user} history={props.history} />} />
+        <Route exact path='/pokemon/:id' render={props => <PokemonDetails {...props} flash={this.flash} />} />
 
       </React.Fragment>
     )

@@ -51,11 +51,11 @@ class PokemonDetails extends Component {
     axios.get('https://pokeapi.co/api/v2/pokemon/' + this.props.match.params.id + '/', {crossDomain: true})
       .then(res => res.status === 200 ? res : new Error())
       .then(res => this.setState({pokemon: res.data}))
+      .catch(() => this.props.flash('API Error', 'flash-error'))
   }
 
   render() {
     const pokemon = this.state.pokemon
-    console.log(pokemon)
 
     const detailContent = pokemon === null ? (
       <h2>Loading...</h2>

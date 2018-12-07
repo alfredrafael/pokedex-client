@@ -53,8 +53,6 @@ function MovesTab (props) {
     })
   })
 
-  console.log(parsedMoves)
-
   return (
     <React.Fragment>
       <Tabs tabPosition='left' >
